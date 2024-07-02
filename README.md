@@ -18,8 +18,7 @@ This project that I made is an example of a management system for employees in a
 ## Information about the project:
 It's not finished yet. I'm actually working on:
 <br>
-  -Completing the CRUD (Update, Delete)<br>
+  -Adding levels of security <br>
   -Optimizing the SQL queries<br>
   -Adding more relevant queries<br>
   -Adding indexes and stored procedures<br>
-  -Adding levels of security
