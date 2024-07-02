@@ -1,4 +1,3 @@
--- IT'S NOT FINISHED YET
 -- CRUD (CREATE, READ, UPDATE, DELETE)
 -- CREATE
 	-- Insert into Departments
@@ -26,25 +25,47 @@
 	-- Insert into Employees_Projects
 		INSERT INTO Employees_Projects(emp_id, pro_id) VALUES(x,x);
         SELECT * FROM Employees_Projects;
-
 -- READ
 	-- List all employees with all his data
-	SELECT E.emp_name AS Name,E.emp_last_name AS Last_Name,E.emp_hiring_date AS Hiring_Date, E.emp_end_date AS End_Date, D.dep_name AS Department, P.pos_title AS Position, S.sal_salary AS Salary FROM Employees E JOIN Departments D ON E.dep_id=D.dep_id
+	SELECT E.emp_id AS ID, E.emp_name AS Name, E.emp_last_name AS 'Last Name', E.emp_hiring_date AS 'Hiring Date', E.emp_end_date AS 'End Date', D.dep_name AS Department, P.pos_title AS Position, S.sal_salary AS Salary FROM Employees E JOIN Departments D ON E.dep_id=D.dep_id
 	JOIN Positions P ON E.pos_id=P.pos_id JOIN Salary_History S ON E.emp_id=S.emp_id;
 
 	-- Lists number of employees per department
-	SELECT D.dep_name AS Department, COUNT(E.emp_id) AS Number_Employees 
+	SELECT D.dep_name AS Department, COUNT(E.emp_id) AS 'Number of Employees' 
 	FROM Departments D JOIN Employees E ON D.dep_id=E.dep_id GROUP BY D.dep_name; 
 
 	-- Average Salary per department
-	SELECT D.dep_name AS Department,ROUND(AVG(S.sal_salary),2) AS Average_Salary
+	SELECT D.dep_name AS Department,ROUND(AVG(S.sal_salary),2) AS 'Average Salary'
 	 FROM Departments D JOIN Employees E ON D.dep_id=E.dep_id JOIN Salary_History S ON E.emp_id=S.emp_id GROUP BY D.dep_name;
 	 
 	 -- Employees that are working in a project
-	 SELECT E.dep_id,E.emp_id,E.emp_name, P.pro_name FROM Employees E JOIN Employees_Projects EP ON E.emp_id=EP.emp_id
+	 SELECT E.dep_id AS 'Department ID',E.emp_id AS 'Employee ID' ,E.emp_name AS 'Employee Name', P.pro_name AS 'Project Name' FROM Employees E JOIN Employees_Projects EP ON E.emp_id=EP.emp_id
 	 JOIN Projects P ON EP.pro_id=P.pro_id;
 
+-- UPDATE
+	-- Update the department of an employee
+		UPDATE Employees SET dep_id=x WHERE emp_id=x;
+        
+	-- Update the position of an employee
+		UPDATE Employees SET pos_id=x WHERE emp_id=x;
+        
+	-- Update the salary of an employee
+		UPDATE Salary_History SET sal_salary=xxxx WHERE emp_id=x AND sal_end_date IS NULL;
+        
+	-- Update the project on which one employee is working
+		Update Employees_Projects SET pro_id=x WHERE emp_id=x;
+        
+	-- Update a project description
+		UPDATE Projects SET pro_description='xxxx' WHERE pro_id=x;
 -- DELETE
-	-- Delete employees
+	-- Delete employees (This query also deletes all records of the employee from other tables.)
 		DELETE FROM Employees WHERE emp_id=x;
+    
+    	-- Delete employees that are no working in the company (This query also deletes all records of the employee from other tables.)
+		DELETE FROM Employees WHERE emp_id=x AND emp_end_date IS NOT NULL;
+        
+	-- Delete a department
+		DELETE FROM Departments WHERE dep_id=x;
 	
+   	 -- Delete a project (This query also deletes all records of the project from other tables).
+		DELETE FROM Projects WHERE pro_id=x;
